@@ -72,7 +72,7 @@ class singleVideoProcesshhmodel():
         videoFeature = []
         for clip in dataloader:
             # print(clip.shape)
-            clip = clip.to(torch.device("cuda:0"))
+            clip = clip.to(self.device)
             pred = self.model(clip)
             videoFeature.append(pred.cpu())
         return torch.cat(videoFeature, dim=0)
@@ -122,7 +122,7 @@ class singleVideoProcesshhmodel():
         return transform 
 
 if __name__ == "__main__":
-    model = singleVideoProcesshhmodel("./archery.mp4")
+    model = singleVideoProcesshhmodel("/home/jing/project/dataset/UCF-Crime-unzip/Training-Normal-Videos-Part-1/Normal_Videos480_x264.mp4")
     pred = model.videoProcess()
     print(pred.shape)
 
