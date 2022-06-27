@@ -74,7 +74,7 @@ class singleVideoProcesshhmodel():
             # print(clip.shape)
             clip = clip.to(self.device)
             pred = self.model(clip)
-            videoFeature.append(pred.cpu())
+            videoFeature.append(pred.detach().cpu())
         return torch.cat(videoFeature, dim=0)
 
     ################################################################################
