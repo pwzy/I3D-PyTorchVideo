@@ -1,3 +1,4 @@
+from os import pread
 import torch
 import json
 from torchvision.transforms import Compose, Lambda
@@ -30,7 +31,7 @@ class VideoIter(torch.utils.data.Dataset):
     def __getitem__(self, index: int):
         video_data = self.video.get_clip(start_sec=self.videoClipSec[index][0], end_sec=self.videoClipSec[index][1]) # [3, 16, 240, 320]
         video_data = self.transform(video_data)
-        print(video_data['video'].shape)
+        # print(video_data['video'].shape)
         return video_data['video']
 
 class singleVideoProcesshhmodel():
@@ -67,11 +68,14 @@ class singleVideoProcesshhmodel():
 
         dataset = VideoIter(self.videoPath, videoClipSec, self.transform)
         dataloader = torch.utils.data.DataLoader(dataset, batch_size=8)
-
+        
+        videoFeature = []
         for clip in dataloader:
-            print(clip.shape)
+            # print(clip.shape)
             clip = clip.to(torch.device("cuda:0"))
             pred = self.model(clip)
+            videoFeature.append(pred.cpu())
+        return torch.cat(videoFeature, dim=0)
 
     ################################################################################
     # Define device
@@ -119,15 +123,7 @@ class singleVideoProcesshhmodel():
 
 if __name__ == "__main__":
     model = singleVideoProcesshhmodel("./archery.mp4")
-    model.videoProcess()
+    pred = model.videoProcess()
+    print(pred.shape)
 
-
-    
-
-
-
-
-
-
-        
 
