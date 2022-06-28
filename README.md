@@ -46,7 +46,10 @@ The downloaded dataset is shown below:
 
     Testing_Normal_Videos_Anomaly, Training-Normal-Videos-Part-1, and Training-Normal-Videos-Part-2 are the abnormal dataset, which contains 950 normal videos. The training and test datasets have been divided.
 
-# 
+# Feature extract
+```
+python main.py
+```
 
 
         
