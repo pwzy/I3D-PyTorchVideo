@@ -35,8 +35,7 @@ class VideoIter(torch.utils.data.Dataset):
         return video_data['video']
 
 class singleVideoProcesshhmodel():
-    def __init__(self, videoPath) -> None:
-        self.videoPath = videoPath
+    def __init__(self) -> None:
         self.device = self.deviceSelect()
         self.model = self.loadModel(self.device)
 
@@ -52,8 +51,8 @@ class singleVideoProcesshhmodel():
         self.transform = self.videoTransform()
         
 
-    def videoProcess(self):
-        videoCapture=cv2.VideoCapture(self.videoPath)                       # 获取视频对象
+    def videoProcess(self, videoPath):
+        videoCapture=cv2.VideoCapture(videoPath)                       # 获取视频对象
         framesNum = videoCapture.get(cv2.CAP_PROP_FRAME_COUNT)              # 视频帧总数
         clipNum = int(framesNum // (self.clip_frames * self.sampling_rate)) # 总的clip数
 
@@ -66,7 +65,7 @@ class singleVideoProcesshhmodel():
             endSec = step_sec[k+1]
             videoClipSec.append([startSec, endSec])
 
-        dataset = VideoIter(self.videoPath, videoClipSec, self.transform)
+        dataset = VideoIter(videoPath, videoClipSec, self.transform)
         dataloader = torch.utils.data.DataLoader(dataset, batch_size=8)
         
         videoFeature = []
@@ -122,8 +121,8 @@ class singleVideoProcesshhmodel():
         return transform 
 
 if __name__ == "__main__":
-    model = singleVideoProcesshhmodel("/home/jing/project/dataset/UCF-Crime-unzip/Training-Normal-Videos-Part-1/Normal_Videos480_x264.mp4")
-    pred = model.videoProcess()
+    model = singleVideoProcesshhmodel()
+    pred = model.videoProcess("/home/jing/project/dataset/UCF-Crime-unzip/Training-Normal-Videos-Part-1/Normal_Videos480_x264.mp4")
     print(pred.shape)
 
 

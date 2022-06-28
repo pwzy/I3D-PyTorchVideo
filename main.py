@@ -30,10 +30,10 @@ if __name__ == "__main__":
     print(videoList[0])
 
 
-    # model = eval.singleVideoProcesshhmodel(videoList[0])
-    # pred = model.videoProcess()
-    # print(pred.shape)
-    # print(len(videoList))
+    model = eval.singleVideoProcesshhmodel()
+    pred = model.videoProcess(videoList[0])
+    print(pred.shape)
+    print(len(videoList))
 
     
     
