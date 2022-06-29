@@ -51,11 +51,36 @@ The downloaded dataset is shown below:
 python main.py
 ```
 
+# After feature extraction，the directory tree is as follows:
 
-        
-    
-
-
+```
+├── Abuse
+├── Arrest
+├── Arson
+├── Assault
+├── Burglary
+├── Explosion
+├── Fighting
+├── RoadAccidents
+├── Robbery
+├── Shooting
+├── Shoplifting
+├── Stealing
+├── Testing_Normal_Videos_Anomaly
+├── Training-Normal-Videos-Part-1
+├── Training-Normal-Videos-Part-2
+└── Vandalism
+```
+# Merge Testing_Normal_Videos_Anomaly, Training-Normal-Videos-Part-1, and Training-Normal-Videos-Part-2:
+```
+cd feature_extract
+mkdir Normal_Videos_event
+cp Training-Normal-Videos-Part-1/* Training-Normal-Videos-Part-2/* Testing_Normal_Videos_Anomaly/* Normal_Videos_event
+rm -rf Training-Normal-Videos-Part-1 Training-Normal-Videos-Part-2 Testing_Normal_Videos_Anomaly
+```
+# Copy the label from repo: https://github.com/seominseok0429/Real-world-Anomaly-Detection-in-Surveillance-Videos-pytorch
+Attention: The train_normal.txt has some repeating elements in it！
+# Feature extract Success!
 
 
 
